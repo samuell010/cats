@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Cats</title>
+    <link rel="stylesheet" href="/styles/basicStyles.css">
+    <script src="/js/searchCats.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>Search Cats</h1>
+        <div id="options">
+            <label for="keylist">Choose key:</label>
+            <select id="keylist">
+                <option value="number">Number</option>
+                <option value="name">Name</option>
+                <option value="breed">Breed</option>
+                <option value="length">Length</option>
+                <option value="yearOfBirth">Year of Birth</option>
+            </select>
+        </div>
+        <label for="searchvalue">Value: <input type="text" id="searchvalue"></label>
+        <button id="submit">Submit</button>
+        <section id="resultarea"></section>
+        <a href="/"><button>Menu</button></a>
+    </main>
+</body>
+</html>

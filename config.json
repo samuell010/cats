@@ -1,0 +1,16 @@
+{
+    "port":3000,
+    "host":"localhost",
+    "storageEngine":{
+        "folder":"jsonStorageEngine",
+        "dataStorageFile":"dataStorageLayer.js"
+    },
+    "storage":{
+        "folder":"Abebe_Samuel_cats",
+        "storageConfigFile":"storageConfig.json"
+    },
+    "library":{
+        "folder":"library",
+        "requestHandler":"libraryForRequesthandling.js"
+    }
+}

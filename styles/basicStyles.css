@@ -1,0 +1,16 @@
+h1{
+    color:green;
+}
+
+body{
+    background-image: url("/images/background.png");
+    background-size: cover;
+}
+
+.error{
+    color:red;
+}
+
+.info{
+    color:green;
+}
