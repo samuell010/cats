@@ -4,7 +4,6 @@ const { CODES, TYPES, MESSAGES } = require('./statusCodes');
 const { createStorageLayer } = require('./storageLayer');
 
 function createDataStorage(storagePath, storageConfig) {
-
     const {
         getAllFromStorage,
         getFromStorage,
@@ -16,7 +15,6 @@ function createDataStorage(storagePath, storageConfig) {
 
     // DataStorage class
     class DataStorage {
-
         get CODES() {
             return CODES;
         }
@@ -57,7 +55,7 @@ function createDataStorage(storagePath, storageConfig) {
                     reject(MESSAGES.NOT_INSERTED());
                 }
             });
-        } // end of insert
+        }
 
         remove(value) {
             return new Promise(async (resolve, reject) => {
@@ -69,11 +67,10 @@ function createDataStorage(storagePath, storageConfig) {
                     reject(MESSAGES.NOT_REMOVED(primary_key, value));
                 }
             });
-        } // end of remove
-    } // end of class
+        }
+    }
 
     return new DataStorage();
-
-} // end of function createDataStorage
+}
 
 module.exports = { createDataStorage };

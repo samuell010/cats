@@ -8,9 +8,9 @@ async function readStorage(storageFile) {
         const data = await fs.readFile(storageFile, 'utf8');
         return JSON.parse(data);
     } catch (err) {
-        // Handle the error, e.g., log it or rethrow it
+    
         console.error(`Error reading file ${storageFile}:`, err.message);
-        return []; // Return an empty array if there's an error
+        return []; 
     }
 }
 
