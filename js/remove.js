@@ -8,7 +8,7 @@
 
     function init(){
         resultarea = document.getElementById('resultarea');
-        inputField = document.getElementById('catNumber'); // Updated field ID to match your context
+        inputField = document.getElementById('catNumber');
 
         document.getElementById('submit')
             .addEventListener('click', send);
@@ -28,22 +28,20 @@
 
     async function send(){
         const value = inputField.value;
-        if(value <= 0){
+        if (value <= 0) {
             updateStatus({message: 'Invalid number', type: 'error'});
-        }
-        else{
-            try{
+        } else {
+            try {
                 const options = {
                     method: 'POST',
-                    body: JSON.stringify({ number: Number(value) }), // Ensure correct field for your context
+                    body: JSON.stringify({ number: value }),
                     headers: { 'Content-Type': 'application/json' }
                 };
 
-                const data = await fetch('/removeCat', options); // Updated endpoint to match your context
+                const data = await fetch('/remove', options);
                 const result = await data.json();
                 updateStatus(result);
-            }
-            catch(err){
+            } catch (err) {
                 updateStatus({message: err.message, type: 'error'});
             }
         }

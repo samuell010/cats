@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Cat</title>
+    <link rel="stylesheet" href="/styles/basicStyles.css">
+    <script src="/js/update.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>Update Cat Information</h1>
+        <div>
+            <label for="catNumber">Cat Number:</label>
+            <input type="number" id="catNumber" name="catNumber">
+        </div>
+        <button id="submit">Fetch Cat</button>
+        <div id="catDetails">
+            <label for="catName">Cat Name:</label>
+            <input type="text" id="catName" name="catName">
+            <label for="catBreed">Cat Breed:</label>
+            <input type="text" id="catBreed" name="catBreed">
+            <label for="catLength">Cat Length:</label>
+            <input type="number" id="catLength" name="catLength">
+            <label for="catYearOfBirth">Year of Birth:</label>
+            <input type="number" id="catYearOfBirth" name="catYearOfBirth">
+            <button id="updateButton" style="display: none;">Update Cat</button>
+        </div>
+        <section id="resultarea"></section>
+        <a href="/"><button>Menu</button></a>
+    </main>
+</body>
+</html>

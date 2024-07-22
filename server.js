@@ -63,7 +63,14 @@ const server = http.createServer(async (req, res) => {
     } else if (method === 'POST') {
         if (route === '/search') {
             const body = await getRequestPostBodyData(req);
-            sendJson(res, await register.get(body.number, 'number')); // Adjusted to match the cat data field
+            const number = body.number;
+            const result = await register.get(number, 'number');
+
+            if (result) {
+                sendJson(res, result);
+            } else {
+                sendJson(res, { error: 'Cat not found' });
+            }
         } else if (route === '/addCat') {
             const body = await getRequestPostBodyData(req);
             register.insert(body)
@@ -71,7 +78,12 @@ const server = http.createServer(async (req, res) => {
                 .catch(error => sendJson(res, error));
         } else if (route === '/remove') {
             const body = await getRequestPostBodyData(req);
-            register.remove(body.number) // Adjusted to match the cat data field
+            register.remove(body.number)
+                .then(result => sendJson(res, result))
+                .catch(error => sendJson(res, error));
+        } else if (route === '/update') {
+            const body = await getRequestPostBodyData(req);
+            register.update(body.number, body)
                 .then(result => sendJson(res, result))
                 .catch(error => sendJson(res, error));
         } else {

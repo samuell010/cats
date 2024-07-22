@@ -1,97 +1,71 @@
 'use strict';
 
-(function(){
-
-    let keylist;
+(function (){
     let resultarea;
-    let searchvalue;
+    let inputField;
 
     document.addEventListener('DOMContentLoaded', init);
 
-    async function init(){
-        keylist = document.getElementById('keylist');
+    function init(){
         resultarea = document.getElementById('resultarea');
-        searchvalue = document.getElementById('searchvalue');
+        inputField = document.getElementById('catNumber');
 
-        try{
-            const data = await fetch('/keys');
-            if(data.ok){
-                const keys = await data.json();
-                if(keys.length > 0){
-                    populateList(keys);
-                }
-                else{
-                    showErrorMessage('Search not available');
-                }
-            }
-            else{
-                showErrorMessage('Failed communication!');
-            }
-        }
-        catch(err){
-            showErrorMessage(err.message);
-        }
-    } //end of init
+        document.getElementById('submit')
+            .addEventListener('click', send);
+        inputField.addEventListener('focus', clear);
+    }
 
-    function populateList(keynames){
-        for(const field of keynames){
-            const option = document.createElement('option');
-            option.value = field;
-            option.textContent = field;
+    function clear(){
+        inputField.value = '';
+        resultarea.textContent = '';
+        resultarea.removeAttribute('class');
+    }
 
-            keylist.appendChild(option);
-        }
-
-        keylist.value = keynames[0];
-
-        document.getElementById('submit').addEventListener('click', send);
-    } //end of populateList
+    function updateStatus(status){
+        resultarea.textContent = status.message;
+        resultarea.setAttribute('class', status.type);
+    }
 
     async function send(){
-        const keyName = keylist.value;
-        const value = searchvalue.value;
-
-        try{
-            const fetchOptions = {
-                method: 'POST',
-                body: JSON.stringify({ value, key: keyName }),
-                headers: { 'Content-Type': 'application/json' }
-            };
-            const data = await fetch('/search', fetchOptions);
-            const result = await data.json();
-
-            updatePage(result);
-        }
-        catch(err){
-            showErrorMessage(err.message);
-        }
-    }
-
-    function updatePage(data){
-        if(!data){
-            showErrorMessage('Programming error!');
-        }
-        else if(data.length === 0){
-            showErrorMessage('Nothing found');
+        const value = inputField.value;
+        if(value <= 0){
+            updateStatus({message: 'Invalid number', type: 'error'});
         }
         else{
-            const htmlString = data.map(item => createCat(item)).join(' ');
-            resultarea.innerHTML = htmlString;
+            try{
+                const options = {
+                    method: 'POST',
+                    body: JSON.stringify({ number: value }),
+                    headers: {'Content-Type': 'application/json'}
+                };
+
+                const data = await fetch('/search', options);
+                const result = await data.json();
+
+                if (result.error) {
+                    updateStatus({message: result.error, type: 'error'});
+                } else if (Object.keys(result).length === 0) {
+                    updateStatus({message: 'Cat not found', type: 'error'});
+                } else {
+                    displayCat(result);
+                }
+            }
+            catch(err){
+                updateStatus({message: err.message, type: 'error'});
+            }
         }
     }
 
-    function createCat(cat){
-        return `<div class="cat">
-        <p>Number: ${cat.number}</p>
-        <p>Name: ${cat.name}</p>
-        <p>Breed: ${cat.breed}</p>
-        <p>Length: ${cat.length}</p>
-        <p>Year of Birth: ${cat.yearOfBirth}</p>
-    </div>`;
-    }
-
-    function showErrorMessage(message){
-        resultarea.innerHTML = `<p>${message}</p>`;
+    function displayCat(cat){
+        resultarea.innerHTML = `
+            <div class="cat">
+                <p>Number: ${cat.number}</p>
+                <p>Name: ${cat.name}</p>
+                <p>Breed: ${cat.breed}</p>
+                <p>Length: ${cat.length}</p>
+                <p>Year of Birth: ${cat.yearOfBirth}</p>
+            </div>
+        `;
     }
 
 })();

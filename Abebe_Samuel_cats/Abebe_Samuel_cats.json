@@ -28,13 +28,6 @@
         "yearOfBirth": 1990
     },
     {
-        "number": 1,
-        "name": "Lion II",
-        "breed": "sillycat",
-        "length": 30,
-        "yearOfBirth": 2017
-    },
-    {
         "number": 3,
         "name": "Hairball",
         "breed": "domesticus",
@@ -47,5 +40,12 @@
         "breed": "alley cat",
         "length": 40,
         "yearOfBirth": 2000
+    },
+    {
+        "number": 102,
+        "name": "Samuel Abebe",
+        "breed": "straight",
+        "length": 3,
+        "yearOfBirth": 32
     }
 ]
